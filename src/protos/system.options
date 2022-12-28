@@ -1,11 +1,11 @@
-HardwareInfo.name max_length:32
+System.HardwareInfo.name max_length:32
 
-FirmwareInfo.name max_length:32
-FirmwareInfo.hash max_length:12
+System.FirmwareInfo.name max_length:32
+System.FirmwareInfo.hash max_length:12
 
-NetworkInfo.ssid max_length:32
-NetworkInfo.password max_length:64
-NetworkInfo.ipaddr max_length:16
+System.NetworkInfo.ssid max_length:32
+System.NetworkInfo.password max_length:64
+System.NetworkInfo.ipaddr max_length:16
 
-SystemInfo.IdentityInfo.id max_length:16
-SystemInfo.IdentityInfo.name max_length:32
+System.SystemInfo.IdentityInfo.id max_length:16
+System.SystemInfo.IdentityInfo.name max_length:32

@@ -77,7 +77,7 @@ typedef struct _System_NetworkInfo {
 /* *
  IdentityInfo: Identifying information about the device. */
 typedef struct _System_SystemInfo_IdentityInfo {
-    /* unique identifier with unlimited length */
+    /* unique identifier */
     pb_callback_t id;
     /* human-readable identifier, not necessarily unique */
     pb_callback_t name;

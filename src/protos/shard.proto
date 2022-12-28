@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+// maximum lengths for string fields defined in corresponding .options file
+// this allows for generation of static (fixed size) message types.
+package Shard;
+
+/**
+* Variable: Defines parameters of a variable.
+* Allows exposition of variables at runtime.
+*/
+message Variable {
+  string name = 1;
+  string description = 2;
+
+  // the type of the variable (required)
+  // key:
+  //   0: boolean
+  //   1: integer
+  //   2: double (floating point)
+  //   3: option (single selection)
+  uint32 type = 3;
+
+  // a boolean choice
+  message Boolean {
+    bool value = 1;
+    bool default = 2;
+    string true_val = 3;
+    string false_val = 4;
+  }
+  Boolean boolean = 4;
+
+  // an integer
+  // optionally existing within some range [min, max]
+  message Integer {
+    int32 value = 1;
+    int32 default = 2;
+
+    // inclusive range type for integers
+    message Range {
+      int32 min = 1;
+      int32 max = 2;
+    }
+
+    // default range to display
+    Range default_range = 4;
+
+    // optional, an allowed range
+    Range allowed_range = 5;
+  }
+  Integer integer = 5;
+
+  // a floating point value
+  // optionally existing within some range [min, max]
+  message Double {
+    double value = 1;
+    double default = 2;
+
+    // inclusive range type for floating point variables
+    message Range {
+      double min = 1;
+      double max = 2;
+    }
+
+    // default range to display
+    Range default_range = 4;
+
+    // optional, an allowed range
+    Range allowed_range = 5;
+  }
+  Double double = 6;
+
+  // selection of a string option
+  message Option {
+    uint32 value = 1;
+    uint32 default = 2;
+
+    // the available options
+    // values are selected by index
+    repeated string options = 3;
+  }
+  Option option = 7;
+}
+
+/**
+* Atom: Minimal information about an executable script.
+* Used for final transmission to the device.
+*/
+message Atom {
+  // the source code encoded in utf-8
+  // optionally minified
+  bytes source = 1;
+}

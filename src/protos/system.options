@@ -1,0 +1,8 @@
+SystemInfo.hw_version max_length:4
+SystemInfo.fw_version max_length:12
+SystemInfo.repo_hash max_length:12
+
+AssertionInfo.file max_length:255
+
+RuntimeHistory.buffer max_count:5
+AssertionHistory.buffer max_count:10

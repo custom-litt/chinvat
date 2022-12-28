@@ -10,4 +10,11 @@ NANOPB_DIR=$SCRIPT_DIR_ABSOLUTE/third-party/nanopb
 PROTOC=$NANOPB_DIR/generator/protoc
 
 # generate protos
-$PROTOC $PROTOC_OPTS --proto_path=$PROTOS_DIR --nanopb_out=$OUTPUT_DIR $PROTOS_DIR/shard.proto $PROTOS_DIR/system.proto
+$PROTOC \
+  $PROTOC_OPTS \
+  --proto_path=$PROTOS_DIR \
+  --nanopb_opt=-I$PROTOS_DIR \
+  --nanopb_out=$OUTPUT_DIR \
+  --python_out=$OUTPUT_DIR \
+  $PROTOS_DIR/shard.proto \
+  $PROTOS_DIR/system.proto

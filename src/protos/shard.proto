@@ -23,17 +23,17 @@ message Variable {
   // a boolean choice
   message Boolean {
     bool value = 1;
-    bool default = 2;
+    bool initial = 2;
     string true_val = 3;
     string false_val = 4;
   }
-  Boolean boolean = 4;
+  Boolean boolean_var = 4;
 
   // an integer
   // optionally existing within some range [min, max]
   message Integer {
     int32 value = 1;
-    int32 default = 2;
+    int32 initial = 2;
 
     // inclusive range type for integers
     message Range {
@@ -47,13 +47,13 @@ message Variable {
     // optional, an allowed range
     Range allowed_range = 5;
   }
-  Integer integer = 5;
+  Integer integer_var = 5;
 
   // a floating point value
   // optionally existing within some range [min, max]
   message Double {
     double value = 1;
-    double default = 2;
+    double initial = 2;
 
     // inclusive range type for floating point variables
     message Range {
@@ -67,18 +67,18 @@ message Variable {
     // optional, an allowed range
     Range allowed_range = 5;
   }
-  Double double = 6;
+  Double double_var = 6;
 
   // selection of a string option
   message Option {
     uint32 value = 1;
-    uint32 default = 2;
+    uint32 initial = 2;
 
     // the available options
     // values are selected by index
     repeated string options = 3;
   }
-  Option option = 7;
+  Option option_var = 7;
 }
 
 /**

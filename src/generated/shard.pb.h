@@ -13,7 +13,7 @@
 /* a boolean choice */
 typedef struct _Shard_Variable_Boolean {
     bool value;
-    bool default;
+    bool initial;
     pb_callback_t true_val;
     pb_callback_t false_val;
 } Shard_Variable_Boolean;
@@ -28,7 +28,7 @@ typedef struct _Shard_Variable_Integer_Range {
  optionally existing within some range [min, max] */
 typedef struct _Shard_Variable_Integer {
     int32_t value;
-    int32_t default;
+    int32_t initial;
     /* default range to display */
     bool has_default_range;
     Shard_Variable_Integer_Range default_range;
@@ -47,7 +47,7 @@ typedef struct _Shard_Variable_Double_Range {
  optionally existing within some range [min, max] */
 typedef struct _Shard_Variable_Double {
     double value;
-    double default;
+    double initial;
     /* default range to display */
     bool has_default_range;
     Shard_Variable_Double_Range default_range;
@@ -59,7 +59,7 @@ typedef struct _Shard_Variable_Double {
 /* selection of a string option */
 typedef struct _Shard_Variable_Option {
     uint32_t value;
-    uint32_t default;
+    uint32_t initial;
     /* the available options
  values are selected by index */
     pb_callback_t options;
@@ -78,14 +78,14 @@ typedef struct _Shard_Variable {
    2: double (floating point)
    3: option (single selection) */
     uint32_t type;
-    bool has_boolean;
-    Shard_Variable_Boolean boolean;
-    bool has_integer;
-    Shard_Variable_Integer integer;
-    bool has_double;
-    Shard_Variable_Double double;
-    bool has_option;
-    Shard_Variable_Option option;
+    bool has_boolean_var;
+    Shard_Variable_Boolean boolean_var;
+    bool has_integer_var;
+    Shard_Variable_Integer integer_var;
+    bool has_double_var;
+    Shard_Variable_Double double_var;
+    bool has_option_var;
+    Shard_Variable_Option option_var;
 } Shard_Variable;
 
 /* *
@@ -122,31 +122,31 @@ extern "C" {
 
 /* Field tags (for use in manual encoding/decoding) */
 #define Shard_Variable_Boolean_value_tag         1
-#define Shard_Variable_Boolean_default_tag       2
+#define Shard_Variable_Boolean_initial_tag       2
 #define Shard_Variable_Boolean_true_val_tag      3
 #define Shard_Variable_Boolean_false_val_tag     4
 #define Shard_Variable_Integer_Range_min_tag     1
 #define Shard_Variable_Integer_Range_max_tag     2
 #define Shard_Variable_Integer_value_tag         1
-#define Shard_Variable_Integer_default_tag       2
+#define Shard_Variable_Integer_initial_tag       2
 #define Shard_Variable_Integer_default_range_tag 4
 #define Shard_Variable_Integer_allowed_range_tag 5
 #define Shard_Variable_Double_Range_min_tag      1
 #define Shard_Variable_Double_Range_max_tag      2
 #define Shard_Variable_Double_value_tag          1
-#define Shard_Variable_Double_default_tag        2
+#define Shard_Variable_Double_initial_tag        2
 #define Shard_Variable_Double_default_range_tag  4
 #define Shard_Variable_Double_allowed_range_tag  5
 #define Shard_Variable_Option_value_tag          1
-#define Shard_Variable_Option_default_tag        2
+#define Shard_Variable_Option_initial_tag        2
 #define Shard_Variable_Option_options_tag        3
 #define Shard_Variable_name_tag                  1
 #define Shard_Variable_description_tag           2
 #define Shard_Variable_type_tag                  3
-#define Shard_Variable_boolean_tag               4
-#define Shard_Variable_integer_tag               5
-#define Shard_Variable_double_tag                6
-#define Shard_Variable_option_tag                7
+#define Shard_Variable_boolean_var_tag           4
+#define Shard_Variable_integer_var_tag           5
+#define Shard_Variable_double_var_tag            6
+#define Shard_Variable_option_var_tag            7
 #define Shard_Atom_source_tag                    1
 
 /* Struct field encoding specification for nanopb */
@@ -154,20 +154,20 @@ extern "C" {
 X(a, CALLBACK, SINGULAR, STRING,   name,              1) \
 X(a, CALLBACK, SINGULAR, STRING,   description,       2) \
 X(a, STATIC,   SINGULAR, UINT32,   type,              3) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  boolean,           4) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  integer,           5) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  double,            6) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  option,            7)
+X(a, STATIC,   OPTIONAL, MESSAGE,  boolean_var,       4) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  integer_var,       5) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  double_var,        6) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  option_var,        7)
 #define Shard_Variable_CALLBACK pb_default_field_callback
 #define Shard_Variable_DEFAULT NULL
-#define Shard_Variable_boolean_MSGTYPE Shard_Variable_Boolean
-#define Shard_Variable_integer_MSGTYPE Shard_Variable_Integer
-#define Shard_Variable_double_MSGTYPE Shard_Variable_Double
-#define Shard_Variable_option_MSGTYPE Shard_Variable_Option
+#define Shard_Variable_boolean_var_MSGTYPE Shard_Variable_Boolean
+#define Shard_Variable_integer_var_MSGTYPE Shard_Variable_Integer
+#define Shard_Variable_double_var_MSGTYPE Shard_Variable_Double
+#define Shard_Variable_option_var_MSGTYPE Shard_Variable_Option
 
 #define Shard_Variable_Boolean_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, BOOL,     value,             1) \
-X(a, STATIC,   SINGULAR, BOOL,     default,           2) \
+X(a, STATIC,   SINGULAR, BOOL,     initial,           2) \
 X(a, CALLBACK, SINGULAR, STRING,   true_val,          3) \
 X(a, CALLBACK, SINGULAR, STRING,   false_val,         4)
 #define Shard_Variable_Boolean_CALLBACK pb_default_field_callback
@@ -175,7 +175,7 @@ X(a, CALLBACK, SINGULAR, STRING,   false_val,         4)
 
 #define Shard_Variable_Integer_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, INT32,    value,             1) \
-X(a, STATIC,   SINGULAR, INT32,    default,           2) \
+X(a, STATIC,   SINGULAR, INT32,    initial,           2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  default_range,     4) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  allowed_range,     5)
 #define Shard_Variable_Integer_CALLBACK NULL
@@ -191,7 +191,7 @@ X(a, STATIC,   SINGULAR, INT32,    max,               2)
 
 #define Shard_Variable_Double_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, DOUBLE,   value,             1) \
-X(a, STATIC,   SINGULAR, DOUBLE,   default,           2) \
+X(a, STATIC,   SINGULAR, DOUBLE,   initial,           2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  default_range,     4) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  allowed_range,     5)
 #define Shard_Variable_Double_CALLBACK NULL
@@ -207,7 +207,7 @@ X(a, STATIC,   SINGULAR, DOUBLE,   max,               2)
 
 #define Shard_Variable_Option_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, UINT32,   value,             1) \
-X(a, STATIC,   SINGULAR, UINT32,   default,           2) \
+X(a, STATIC,   SINGULAR, UINT32,   initial,           2) \
 X(a, CALLBACK, REPEATED, STRING,   options,           3)
 #define Shard_Variable_Option_CALLBACK pb_default_field_callback
 #define Shard_Variable_Option_DEFAULT NULL

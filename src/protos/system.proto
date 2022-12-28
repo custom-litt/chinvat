@@ -82,7 +82,7 @@ message SystemInfo {
   * IdentityInfo: Identifying information about the device.
   */
   message IdentityInfo {
-    // unique identifier with unlimited length
+    // unique identifier
     bytes id = 1;
 
     // human-readable identifier, not necessarily unique

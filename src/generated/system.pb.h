@@ -34,7 +34,7 @@ typedef struct _System_HardwareInfo {
     /* unique id for the hardware, used to locate updates */
     bool has_id;
     System_UUIDv4 id;
-    pb_callback_t name;
+    char name[33];
     bool has_version;
     System_Version version;
 } System_HardwareInfo;
@@ -45,21 +45,21 @@ typedef struct _System_FirmwareInfo {
     /* unique id for the firmware, used to locate updates */
     bool has_id;
     System_UUIDv4 id;
-    pb_callback_t name;
+    char name[33];
     bool has_version;
     System_Version version;
-    pb_callback_t hash;
+    char hash[13];
 } System_FirmwareInfo;
 
 /* *
  NetworkInfo: Information about the network connection. */
 typedef struct _System_NetworkInfo {
     /* the name used to identify the access point */
-    pb_callback_t ssid;
+    char ssid[33];
     /* the password used to connect to the access point
  when used for configuration this field missing will indicate an open network
  this field will not be sent when the system state is reported */
-    pb_callback_t password;
+    char password[65];
     /* represents connection status state or requests
  0: disconnected
  1: connected
@@ -80,7 +80,7 @@ typedef struct _System_SystemInfo_IdentityInfo {
     /* unique identifier */
     pb_callback_t id;
     /* human-readable identifier, not necessarily unique */
-    pb_callback_t name;
+    char name[33];
 } System_SystemInfo_IdentityInfo;
 
 /* *
@@ -104,18 +104,18 @@ extern "C" {
 /* Initializer values for message structs */
 #define System_UUIDv4_init_default               {0, 0}
 #define System_Version_init_default              {0, 0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
-#define System_HardwareInfo_init_default         {false, System_UUIDv4_init_default, {{NULL}, NULL}, false, System_Version_init_default}
-#define System_FirmwareInfo_init_default         {false, System_UUIDv4_init_default, {{NULL}, NULL}, false, System_Version_init_default, {{NULL}, NULL}}
-#define System_NetworkInfo_init_default          {{{NULL}, NULL}, {{NULL}, NULL}, 0, {{NULL}, NULL}}
+#define System_HardwareInfo_init_default         {false, System_UUIDv4_init_default, "", false, System_Version_init_default}
+#define System_FirmwareInfo_init_default         {false, System_UUIDv4_init_default, "", false, System_Version_init_default, ""}
+#define System_NetworkInfo_init_default          {"", "", 0, {{NULL}, NULL}}
 #define System_SystemInfo_init_default           {false, System_SystemInfo_IdentityInfo_init_default, false, System_HardwareInfo_init_default, false, System_FirmwareInfo_init_default, false, System_NetworkInfo_init_default}
-#define System_SystemInfo_IdentityInfo_init_default {{{NULL}, NULL}, {{NULL}, NULL}}
+#define System_SystemInfo_IdentityInfo_init_default {{{NULL}, NULL}, ""}
 #define System_UUIDv4_init_zero                  {0, 0}
 #define System_Version_init_zero                 {0, 0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
-#define System_HardwareInfo_init_zero            {false, System_UUIDv4_init_zero, {{NULL}, NULL}, false, System_Version_init_zero}
-#define System_FirmwareInfo_init_zero            {false, System_UUIDv4_init_zero, {{NULL}, NULL}, false, System_Version_init_zero, {{NULL}, NULL}}
-#define System_NetworkInfo_init_zero             {{{NULL}, NULL}, {{NULL}, NULL}, 0, {{NULL}, NULL}}
+#define System_HardwareInfo_init_zero            {false, System_UUIDv4_init_zero, "", false, System_Version_init_zero}
+#define System_FirmwareInfo_init_zero            {false, System_UUIDv4_init_zero, "", false, System_Version_init_zero, ""}
+#define System_NetworkInfo_init_zero             {"", "", 0, {{NULL}, NULL}}
 #define System_SystemInfo_init_zero              {false, System_SystemInfo_IdentityInfo_init_zero, false, System_HardwareInfo_init_zero, false, System_FirmwareInfo_init_zero, false, System_NetworkInfo_init_zero}
-#define System_SystemInfo_IdentityInfo_init_zero {{{NULL}, NULL}, {{NULL}, NULL}}
+#define System_SystemInfo_IdentityInfo_init_zero {{{NULL}, NULL}, ""}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define System_UUIDv4_upper_tag                  1
@@ -161,26 +161,26 @@ X(a, CALLBACK, SINGULAR, STRING,   build,             5)
 
 #define System_HardwareInfo_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2) \
+X(a, STATIC,   SINGULAR, STRING,   name,              2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           3)
-#define System_HardwareInfo_CALLBACK pb_default_field_callback
+#define System_HardwareInfo_CALLBACK NULL
 #define System_HardwareInfo_DEFAULT NULL
 #define System_HardwareInfo_id_MSGTYPE System_UUIDv4
 #define System_HardwareInfo_version_MSGTYPE System_Version
 
 #define System_FirmwareInfo_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2) \
+X(a, STATIC,   SINGULAR, STRING,   name,              2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           3) \
-X(a, CALLBACK, SINGULAR, STRING,   hash,              4)
-#define System_FirmwareInfo_CALLBACK pb_default_field_callback
+X(a, STATIC,   SINGULAR, STRING,   hash,              4)
+#define System_FirmwareInfo_CALLBACK NULL
 #define System_FirmwareInfo_DEFAULT NULL
 #define System_FirmwareInfo_id_MSGTYPE System_UUIDv4
 #define System_FirmwareInfo_version_MSGTYPE System_Version
 
 #define System_NetworkInfo_FIELDLIST(X, a) \
-X(a, CALLBACK, SINGULAR, STRING,   ssid,              1) \
-X(a, CALLBACK, SINGULAR, STRING,   password,          2) \
+X(a, STATIC,   SINGULAR, STRING,   ssid,              1) \
+X(a, STATIC,   SINGULAR, STRING,   password,          2) \
 X(a, STATIC,   SINGULAR, UINT32,   state,             3) \
 X(a, CALLBACK, SINGULAR, BYTES,    ipaddr,            4)
 #define System_NetworkInfo_CALLBACK pb_default_field_callback
@@ -200,7 +200,7 @@ X(a, STATIC,   OPTIONAL, MESSAGE,  network,           4)
 
 #define System_SystemInfo_IdentityInfo_FIELDLIST(X, a) \
 X(a, CALLBACK, SINGULAR, BYTES,    id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2)
+X(a, STATIC,   SINGULAR, STRING,   name,              2)
 #define System_SystemInfo_IdentityInfo_CALLBACK pb_default_field_callback
 #define System_SystemInfo_IdentityInfo_DEFAULT NULL
 

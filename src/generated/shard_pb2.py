@@ -13,27 +13,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bshard.proto\x12\x05Shard\"\xed\x05\n\x08Variable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\r\x12,\n\x0b\x62oolean_var\x18\x04 \x01(\x0b\x32\x17.Shard.Variable.Boolean\x12,\n\x0binteger_var\x18\x05 \x01(\x0b\x32\x17.Shard.Variable.Integer\x12*\n\ndouble_var\x18\x06 \x01(\x0b\x32\x16.Shard.Variable.Double\x12*\n\noption_var\x18\x07 \x01(\x0b\x32\x16.Shard.Variable.Option\x1aN\n\x07\x42oolean\x12\r\n\x05value\x18\x01 \x01(\x08\x12\x0f\n\x07initial\x18\x02 \x01(\x08\x12\x10\n\x08true_val\x18\x03 \x01(\t\x12\x11\n\tfalse_val\x18\x04 \x01(\t\x1a\xb8\x01\n\x07Integer\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x0f\n\x07initial\x18\x02 \x01(\x05\x12\x34\n\rdefault_range\x18\x04 \x01(\x0b\x32\x1d.Shard.Variable.Integer.Range\x12\x34\n\rallowed_range\x18\x05 \x01(\x0b\x32\x1d.Shard.Variable.Integer.Range\x1a!\n\x05Range\x12\x0b\n\x03min\x18\x01 \x01(\x05\x12\x0b\n\x03max\x18\x02 \x01(\x05\x1a\xb5\x01\n\x06\x44ouble\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x0f\n\x07initial\x18\x02 \x01(\x01\x12\x33\n\rdefault_range\x18\x04 \x01(\x0b\x32\x1c.Shard.Variable.Double.Range\x12\x33\n\rallowed_range\x18\x05 \x01(\x0b\x32\x1c.Shard.Variable.Double.Range\x1a!\n\x05Range\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\x1a\x39\n\x06Option\x12\r\n\x05value\x18\x01 \x01(\r\x12\x0f\n\x07initial\x18\x02 \x01(\r\x12\x0f\n\x07options\x18\x03 \x03(\t\"\x16\n\x04\x41tom\x12\x0e\n\x06source\x18\x01 \x01(\x0c\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bshard.proto\x12\x05Shard\"\x16\n\x04\x41tom\x12\x0e\n\x06source\x18\x01 \x01(\x0c\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'shard_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _VARIABLE._serialized_start=23
-  _VARIABLE._serialized_end=772
-  _VARIABLE_BOOLEAN._serialized_start=264
-  _VARIABLE_BOOLEAN._serialized_end=342
-  _VARIABLE_INTEGER._serialized_start=345
-  _VARIABLE_INTEGER._serialized_end=529
-  _VARIABLE_INTEGER_RANGE._serialized_start=496
-  _VARIABLE_INTEGER_RANGE._serialized_end=529
-  _VARIABLE_DOUBLE._serialized_start=532
-  _VARIABLE_DOUBLE._serialized_end=713
-  _VARIABLE_DOUBLE_RANGE._serialized_start=680
-  _VARIABLE_DOUBLE_RANGE._serialized_end=713
-  _VARIABLE_OPTION._serialized_start=715
-  _VARIABLE_OPTION._serialized_end=772
-  _ATOM._serialized_start=774
-  _ATOM._serialized_end=796
+  _ATOM._serialized_start=22
+  _ATOM._serialized_end=44
 # @@protoc_insertion_point(module_scope)

@@ -6,36 +6,7 @@
 #error Regenerate this file with the current version of nanopb generator.
 #endif
 
-PB_BIND(Shard_Variable, Shard_Variable, AUTO)
-
-
-PB_BIND(Shard_Variable_Boolean, Shard_Variable_Boolean, AUTO)
-
-
-PB_BIND(Shard_Variable_Integer, Shard_Variable_Integer, AUTO)
-
-
-PB_BIND(Shard_Variable_Integer_Range, Shard_Variable_Integer_Range, AUTO)
-
-
-PB_BIND(Shard_Variable_Double, Shard_Variable_Double, AUTO)
-
-
-PB_BIND(Shard_Variable_Double_Range, Shard_Variable_Double_Range, AUTO)
-
-
-PB_BIND(Shard_Variable_Option, Shard_Variable_Option, AUTO)
-
-
 PB_BIND(Shard_Atom, Shard_Atom, AUTO)
 
 
-
-#ifndef PB_CONVERT_DOUBLE_FLOAT
-/* On some platforms (such as AVR), double is really float.
- * To be able to encode/decode double on these platforms, you need.
- * to define PB_CONVERT_DOUBLE_FLOAT in pb.h or compiler command line.
- */
-PB_STATIC_ASSERT(sizeof(double) == 8, DOUBLE_MUST_BE_8_BYTES)
-#endif
 

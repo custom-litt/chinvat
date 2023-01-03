@@ -17,8 +17,8 @@ typedef struct _Version {
     uint32_t major;
     uint32_t minor;
     uint32_t patch;
-    pb_callback_t prerelease;
-    pb_callback_t build;
+    char prerelease[17];
+    char build[17];
 } Version;
 
 
@@ -27,8 +27,8 @@ extern "C" {
 #endif
 
 /* Initializer values for message structs */
-#define Version_init_default                     {0, 0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
-#define Version_init_zero                        {0, 0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
+#define Version_init_default                     {0, 0, 0, "", ""}
+#define Version_init_zero                        {0, 0, 0, "", ""}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define Version_major_tag                        1
@@ -42,9 +42,9 @@ extern "C" {
 X(a, STATIC,   SINGULAR, UINT32,   major,             1) \
 X(a, STATIC,   SINGULAR, UINT32,   minor,             2) \
 X(a, STATIC,   SINGULAR, UINT32,   patch,             3) \
-X(a, CALLBACK, SINGULAR, STRING,   prerelease,        4) \
-X(a, CALLBACK, SINGULAR, STRING,   build,             5)
-#define Version_CALLBACK pb_default_field_callback
+X(a, STATIC,   SINGULAR, STRING,   prerelease,        4) \
+X(a, STATIC,   SINGULAR, STRING,   build,             5)
+#define Version_CALLBACK NULL
 #define Version_DEFAULT NULL
 
 extern const pb_msgdesc_t Version_msg;
@@ -53,7 +53,7 @@ extern const pb_msgdesc_t Version_msg;
 #define Version_fields &Version_msg
 
 /* Maximum encoded size of messages (where known) */
-/* Version_size depends on runtime parameters */
+#define Version_size                             54
 
 #ifdef __cplusplus
 } /* extern "C" */

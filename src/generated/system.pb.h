@@ -18,7 +18,7 @@ typedef struct _HardwareInfo {
     /* unique id for the hardware */
     bool has_id;
     UUIDv4 id;
-    pb_callback_t name;
+    char name[17];
     bool has_version;
     Version version;
 } HardwareInfo;
@@ -29,7 +29,7 @@ typedef struct _FirmwareInfo {
     /* unique id for the firmware, used to locate updates */
     bool has_id;
     UUIDv4 id;
-    pb_callback_t name;
+    char name[17];
     bool has_version;
     Version version;
     char hash[13];
@@ -80,12 +80,12 @@ extern "C" {
 #endif
 
 /* Initializer values for message structs */
-#define HardwareInfo_init_default                {false, UUIDv4_init_default, {{NULL}, NULL}, false, Version_init_default}
-#define FirmwareInfo_init_default                {false, UUIDv4_init_default, {{NULL}, NULL}, false, Version_init_default, ""}
+#define HardwareInfo_init_default                {false, UUIDv4_init_default, "", false, Version_init_default}
+#define FirmwareInfo_init_default                {false, UUIDv4_init_default, "", false, Version_init_default, ""}
 #define NetworkInfo_init_default                 {"", "", 0, 0, {{NULL}, NULL}}
 #define IdentityInfo_init_default                {{{NULL}, NULL}, {{NULL}, NULL}}
-#define HardwareInfo_init_zero                   {false, UUIDv4_init_zero, {{NULL}, NULL}, false, Version_init_zero}
-#define FirmwareInfo_init_zero                   {false, UUIDv4_init_zero, {{NULL}, NULL}, false, Version_init_zero, ""}
+#define HardwareInfo_init_zero                   {false, UUIDv4_init_zero, "", false, Version_init_zero}
+#define FirmwareInfo_init_zero                   {false, UUIDv4_init_zero, "", false, Version_init_zero, ""}
 #define NetworkInfo_init_zero                    {"", "", 0, 0, {{NULL}, NULL}}
 #define IdentityInfo_init_zero                   {{{NULL}, NULL}, {{NULL}, NULL}}
 
@@ -108,19 +108,19 @@ extern "C" {
 /* Struct field encoding specification for nanopb */
 #define HardwareInfo_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2) \
+X(a, STATIC,   SINGULAR, STRING,   name,              2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           3)
-#define HardwareInfo_CALLBACK pb_default_field_callback
+#define HardwareInfo_CALLBACK NULL
 #define HardwareInfo_DEFAULT NULL
 #define HardwareInfo_id_MSGTYPE UUIDv4
 #define HardwareInfo_version_MSGTYPE Version
 
 #define FirmwareInfo_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2) \
+X(a, STATIC,   SINGULAR, STRING,   name,              2) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           3) \
 X(a, STATIC,   SINGULAR, STRING,   hash,              4)
-#define FirmwareInfo_CALLBACK pb_default_field_callback
+#define FirmwareInfo_CALLBACK NULL
 #define FirmwareInfo_DEFAULT NULL
 #define FirmwareInfo_id_MSGTYPE UUIDv4
 #define FirmwareInfo_version_MSGTYPE Version
@@ -152,10 +152,10 @@ extern const pb_msgdesc_t IdentityInfo_msg;
 #define IdentityInfo_fields &IdentityInfo_msg
 
 /* Maximum encoded size of messages (where known) */
-/* HardwareInfo_size depends on runtime parameters */
-/* FirmwareInfo_size depends on runtime parameters */
 /* NetworkInfo_size depends on runtime parameters */
 /* IdentityInfo_size depends on runtime parameters */
+#define FirmwareInfo_size                        112
+#define HardwareInfo_size                        98
 
 #ifdef __cplusplus
 } /* extern "C" */

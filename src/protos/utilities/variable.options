@@ -1,0 +1,9 @@
+Variable.name max_length:24
+Variable.description max_length:128
+
+Variable.Boolean.true_val max_length:16
+Variable.Boolean.false_val max_length:16
+
+Variable.Option.true_val max_length:16
+
+Version.build max_length:16

@@ -8,14 +8,6 @@ message Variable {
   string name = 1;
   string description = 2;
 
-  // the type of the variable (required)
-  // key:
-  //   0: boolean
-  //   1: integer
-  //   2: double (floating point)
-  //   3: option (single selection)
-  uint32 type = 3;
-
   // a boolean choice
   message Boolean {
     bool value = 1;
@@ -23,7 +15,6 @@ message Variable {
     string true_val = 3;
     string false_val = 4;
   }
-  Boolean boolean_var = 4;
 
   // an integer
   // optionally existing within some range [min, max]
@@ -43,7 +34,6 @@ message Variable {
     // optional, an allowed range
     Range allowed_range = 5;
   }
-  Integer integer_var = 5;
 
   // a floating point value
   // optionally existing within some range [min, max]
@@ -63,7 +53,6 @@ message Variable {
     // optional, an allowed range
     Range allowed_range = 5;
   }
-  Double double_var = 6;
 
   // selection of a string option
   message Option {
@@ -74,5 +63,12 @@ message Variable {
     // values are selected by index
     repeated string options = 3;
   }
-  Option option_var = 7;
+
+  // select one of the available kinds of variables
+  oneof variable {
+    Boolean boolean_var = 4;
+    Integer interger_var = 5;
+    Double double_var = 6;
+    Option option_var = 7;
+  }
 }

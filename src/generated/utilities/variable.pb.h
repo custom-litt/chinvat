@@ -71,21 +71,13 @@ typedef struct _Variable_Option {
 typedef struct _Variable {
     pb_callback_t name;
     pb_callback_t description;
-    /* the type of the variable (required)
- key:
-   0: boolean
-   1: integer
-   2: double (floating point)
-   3: option (single selection) */
-    uint32_t type;
-    bool has_boolean_var;
-    Variable_Boolean boolean_var;
-    bool has_integer_var;
-    Variable_Integer integer_var;
-    bool has_double_var;
-    Variable_Double double_var;
-    bool has_option_var;
-    Variable_Option option_var;
+    pb_size_t which_variable;
+    union {
+        Variable_Boolean boolean_var;
+        Variable_Integer interger_var;
+        Variable_Double double_var;
+        Variable_Option option_var;
+    } variable;
 } Variable;
 
 
@@ -94,14 +86,14 @@ extern "C" {
 #endif
 
 /* Initializer values for message structs */
-#define Variable_init_default                    {{{NULL}, NULL}, {{NULL}, NULL}, 0, false, Variable_Boolean_init_default, false, Variable_Integer_init_default, false, Variable_Double_init_default, false, Variable_Option_init_default}
+#define Variable_init_default                    {{{NULL}, NULL}, {{NULL}, NULL}, 0, {Variable_Boolean_init_default}}
 #define Variable_Boolean_init_default            {0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
 #define Variable_Integer_init_default            {0, 0, false, Variable_Integer_Range_init_default, false, Variable_Integer_Range_init_default}
 #define Variable_Integer_Range_init_default      {0, 0}
 #define Variable_Double_init_default             {0, 0, false, Variable_Double_Range_init_default, false, Variable_Double_Range_init_default}
 #define Variable_Double_Range_init_default       {0, 0}
 #define Variable_Option_init_default             {0, 0, {{NULL}, NULL}}
-#define Variable_init_zero                       {{{NULL}, NULL}, {{NULL}, NULL}, 0, false, Variable_Boolean_init_zero, false, Variable_Integer_init_zero, false, Variable_Double_init_zero, false, Variable_Option_init_zero}
+#define Variable_init_zero                       {{{NULL}, NULL}, {{NULL}, NULL}, 0, {Variable_Boolean_init_zero}}
 #define Variable_Boolean_init_zero               {0, 0, {{NULL}, NULL}, {{NULL}, NULL}}
 #define Variable_Integer_init_zero               {0, 0, false, Variable_Integer_Range_init_zero, false, Variable_Integer_Range_init_zero}
 #define Variable_Integer_Range_init_zero         {0, 0}
@@ -131,9 +123,8 @@ extern "C" {
 #define Variable_Option_options_tag              3
 #define Variable_name_tag                        1
 #define Variable_description_tag                 2
-#define Variable_type_tag                        3
 #define Variable_boolean_var_tag                 4
-#define Variable_integer_var_tag                 5
+#define Variable_interger_var_tag                5
 #define Variable_double_var_tag                  6
 #define Variable_option_var_tag                  7
 
@@ -141,17 +132,16 @@ extern "C" {
 #define Variable_FIELDLIST(X, a) \
 X(a, CALLBACK, SINGULAR, STRING,   name,              1) \
 X(a, CALLBACK, SINGULAR, STRING,   description,       2) \
-X(a, STATIC,   SINGULAR, UINT32,   type,              3) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  boolean_var,       4) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  integer_var,       5) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  double_var,        6) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  option_var,        7)
+X(a, STATIC,   ONEOF,    MESSAGE,  (variable,boolean_var,variable.boolean_var),   4) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (variable,interger_var,variable.interger_var),   5) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (variable,double_var,variable.double_var),   6) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (variable,option_var,variable.option_var),   7)
 #define Variable_CALLBACK pb_default_field_callback
 #define Variable_DEFAULT NULL
-#define Variable_boolean_var_MSGTYPE Variable_Boolean
-#define Variable_integer_var_MSGTYPE Variable_Integer
-#define Variable_double_var_MSGTYPE Variable_Double
-#define Variable_option_var_MSGTYPE Variable_Option
+#define Variable_variable_boolean_var_MSGTYPE Variable_Boolean
+#define Variable_variable_interger_var_MSGTYPE Variable_Integer
+#define Variable_variable_double_var_MSGTYPE Variable_Double
+#define Variable_variable_option_var_MSGTYPE Variable_Option
 
 #define Variable_Boolean_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, BOOL,     value,             1) \

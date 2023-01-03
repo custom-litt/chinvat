@@ -1,34 +1,15 @@
 syntax = "proto3";
 
-// maximum lengths for string fields defined in corresponding .options file
-// this allows for generation of static (fixed size) message types.
-package System;
+import "utilities/uuidv4.proto";
+import "utilities/version.proto";
 
-/**
-* UUIDv4: A universally unique identifier.
-*/
-message UUIDv4 {
-  uint64 upper = 1;
-  uint64 lower = 2;
-}
-
-/**
-* Version: Version information compliant with Semantic Versioning 2.0.0
-* https://semver.org/
-*/
-message Version {
-  uint32 major = 1;
-  uint32 minor = 2;
-  uint32 patch = 3;
-  string prerelease = 4;
-  string build = 5;
-}
+// see corresponding .options file for limits on fields
 
 /**
 * HardwareInfo: Information about the hardware.
 */
 message HardwareInfo {
-  // unique id for the hardware, used to locate updates
+  // unique id for the hardware
   UUIDv4 id = 1;
 
   string name = 2;
@@ -59,37 +40,36 @@ message NetworkInfo {
   // this field will not be sent when the system state is reported
   string password = 2;
 
+  // the mode for networking
+  // key:
+  //  0: none
+  //  1: station
+  //  2: access point
+  //  others: reserved
+  uint32 mode = 3;
+
   // represents connection status state or requests
   // 0: disconnected
   // 1: connected
   // 2: request connection activation
   // 3: request connection shutdown
   // others: reserved
-  uint32 state = 3;
+  uint32 state = 4;
 
   // ip address
   // the ip address version can be found depending on the length of this field
   // length 4 bytes: IPv4
   // length 16 bytes: IPv6
-  bytes ipaddr = 4;
+  bytes ipaddr = 5;
 }
 
 /**
-* SystemInfo: Identifying information about the device.
+* IdentityInfo: Information about the device.
 */
-message SystemInfo {
-  /**
-  * IdentityInfo: Identifying information about the device.
-  */
-  message IdentityInfo {
-    // unique identifier
-    bytes id = 1;
+message IdentityInfo {
+  // unique identifier
+  bytes id = 1;
 
-    // human-readable identifier, not necessarily unique
-    string name = 2;
-  }
-  IdentityInfo identity = 1;
-  HardwareInfo hardware = 2;
-  FirmwareInfo firmware = 3;
-  NetworkInfo network = 4;
+  // human-readable identifier, not necessarily unique
+  string name = 2;
 }

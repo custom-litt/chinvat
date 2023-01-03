@@ -6,7 +6,7 @@
 #error Regenerate this file with the current version of nanopb generator.
 #endif
 
-PB_BIND(Shard_Atom, Shard_Atom, AUTO)
+PB_BIND(Shard, Shard, AUTO)
 
 
 

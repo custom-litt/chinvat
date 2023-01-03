@@ -1,9 +1,5 @@
 syntax = "proto3";
 
-// maximum lengths for string fields defined in corresponding .options file
-// this allows for generation of static (fixed size) message types.
-package Resource;
-
 /**
 * Variable: Defines parameters of a variable.
 * Allows exposition of variables at runtime.

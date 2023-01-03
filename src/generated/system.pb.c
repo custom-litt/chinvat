@@ -6,25 +6,16 @@
 #error Regenerate this file with the current version of nanopb generator.
 #endif
 
-PB_BIND(System_UUIDv4, System_UUIDv4, AUTO)
+PB_BIND(HardwareInfo, HardwareInfo, AUTO)
 
 
-PB_BIND(System_Version, System_Version, AUTO)
+PB_BIND(FirmwareInfo, FirmwareInfo, AUTO)
 
 
-PB_BIND(System_HardwareInfo, System_HardwareInfo, AUTO)
+PB_BIND(NetworkInfo, NetworkInfo, AUTO)
 
 
-PB_BIND(System_FirmwareInfo, System_FirmwareInfo, AUTO)
-
-
-PB_BIND(System_NetworkInfo, System_NetworkInfo, AUTO)
-
-
-PB_BIND(System_SystemInfo, System_SystemInfo, 2)
-
-
-PB_BIND(System_SystemInfo_IdentityInfo, System_SystemInfo_IdentityInfo, AUTO)
+PB_BIND(IdentityInfo, IdentityInfo, AUTO)
 
 
 

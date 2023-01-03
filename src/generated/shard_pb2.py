@@ -11,15 +11,17 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from utilities import uuidv4_pb2 as utilities_dot_uuidv4__pb2
+from utilities import version_pb2 as utilities_dot_version__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bshard.proto\x12\x05Shard\"\x16\n\x04\x41tom\x12\x0e\n\x06source\x18\x01 \x01(\x0c\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bshard.proto\x1a\x16utilities/uuidv4.proto\x1a\x17utilities/version.proto\"G\n\x05Shard\x12\x13\n\x02id\x18\x01 \x01(\x0b\x32\x07.UUIDv4\x12\x19\n\x07version\x18\x02 \x01(\x0b\x32\x08.Version\x12\x0e\n\x06source\x18\x03 \x01(\x0c\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'shard_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _ATOM._serialized_start=22
-  _ATOM._serialized_end=44
+  _SHARD._serialized_start=64
+  _SHARD._serialized_end=135
 # @@protoc_insertion_point(module_scope)

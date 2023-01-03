@@ -16,6 +16,5 @@ $PROTOC \
   --nanopb_opt=-I$PROTOS_DIR \
   --nanopb_out=$OUTPUT_DIR \
   --python_out=$OUTPUT_DIR \
-  $PROTOS_DIR/resource.proto \
   $PROTOS_DIR/shard.proto \
   $PROTOS_DIR/system.proto

@@ -1,15 +1,18 @@
 syntax = "proto3";
 
-// maximum lengths for string fields defined in corresponding .options file
-// this allows for generation of static (fixed size) message types.
-package Shard;
+import "utilities/uuidv4.proto";
+import "utilities/version.proto";
+
+// see corresponding .options file for limits on fields
 
 /**
-* Atom: Minimal information about an executable script.
-* Used for final transmission to the device.
+* Shard: information about an executable script.
 */
-message Atom {
+message Shard {
+  UUIDv4 id = 1;
+  Version version = 2;
+
   // the source code encoded in utf-8
   // optionally minified
-  bytes source = 1;
+  bytes source = 3;
 }

@@ -11,27 +11,23 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from utilities import uuidv4_pb2 as utilities_dot_uuidv4__pb2
+from utilities import version_pb2 as utilities_dot_version__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0csystem.proto\x12\x06System\"&\n\x06UUIDv4\x12\r\n\x05upper\x18\x01 \x01(\x04\x12\r\n\x05lower\x18\x02 \x01(\x04\"Y\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\r\x12\r\n\x05minor\x18\x02 \x01(\r\x12\r\n\x05patch\x18\x03 \x01(\r\x12\x12\n\nprerelease\x18\x04 \x01(\t\x12\r\n\x05\x62uild\x18\x05 \x01(\t\"Z\n\x0cHardwareInfo\x12\x1a\n\x02id\x18\x01 \x01(\x0b\x32\x0e.System.UUIDv4\x12\x0c\n\x04name\x18\x02 \x01(\t\x12 \n\x07version\x18\x03 \x01(\x0b\x32\x0f.System.Version\"h\n\x0c\x46irmwareInfo\x12\x1a\n\x02id\x18\x01 \x01(\x0b\x32\x0e.System.UUIDv4\x12\x0c\n\x04name\x18\x02 \x01(\t\x12 \n\x07version\x18\x03 \x01(\x0b\x32\x0f.System.Version\x12\x0c\n\x04hash\x18\x04 \x01(\t\"L\n\x0bNetworkInfo\x12\x0c\n\x04ssid\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\r\x12\x0e\n\x06ipaddr\x18\x04 \x01(\x0c\"\xdf\x01\n\nSystemInfo\x12\x31\n\x08identity\x18\x01 \x01(\x0b\x32\x1f.System.SystemInfo.IdentityInfo\x12&\n\x08hardware\x18\x02 \x01(\x0b\x32\x14.System.HardwareInfo\x12&\n\x08\x66irmware\x18\x03 \x01(\x0b\x32\x14.System.FirmwareInfo\x12$\n\x07network\x18\x04 \x01(\x0b\x32\x13.System.NetworkInfo\x1a(\n\x0cIdentityInfo\x12\n\n\x02id\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0csystem.proto\x1a\x16utilities/uuidv4.proto\x1a\x17utilities/version.proto\"L\n\x0cHardwareInfo\x12\x13\n\x02id\x18\x01 \x01(\x0b\x32\x07.UUIDv4\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x19\n\x07version\x18\x03 \x01(\x0b\x32\x08.Version\"Z\n\x0c\x46irmwareInfo\x12\x13\n\x02id\x18\x01 \x01(\x0b\x32\x07.UUIDv4\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x19\n\x07version\x18\x03 \x01(\x0b\x32\x08.Version\x12\x0c\n\x04hash\x18\x04 \x01(\t\"Z\n\x0bNetworkInfo\x12\x0c\n\x04ssid\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0c\n\x04mode\x18\x03 \x01(\r\x12\r\n\x05state\x18\x04 \x01(\r\x12\x0e\n\x06ipaddr\x18\x05 \x01(\x0c\"(\n\x0cIdentityInfo\x12\n\n\x02id\x18\x01 \x01(\x0c\x12\x0c\n\x04name\x18\x02 \x01(\tb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'system_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _UUIDV4._serialized_start=24
-  _UUIDV4._serialized_end=62
-  _VERSION._serialized_start=64
-  _VERSION._serialized_end=153
-  _HARDWAREINFO._serialized_start=155
-  _HARDWAREINFO._serialized_end=245
-  _FIRMWAREINFO._serialized_start=247
-  _FIRMWAREINFO._serialized_end=351
-  _NETWORKINFO._serialized_start=353
-  _NETWORKINFO._serialized_end=429
-  _SYSTEMINFO._serialized_start=432
-  _SYSTEMINFO._serialized_end=655
-  _SYSTEMINFO_IDENTITYINFO._serialized_start=615
-  _SYSTEMINFO_IDENTITYINFO._serialized_end=655
+  _HARDWAREINFO._serialized_start=65
+  _HARDWAREINFO._serialized_end=141
+  _FIRMWAREINFO._serialized_start=143
+  _FIRMWAREINFO._serialized_end=233
+  _NETWORKINFO._serialized_start=235
+  _NETWORKINFO._serialized_end=325
+  _IDENTITYINFO._serialized_start=327
+  _IDENTITYINFO._serialized_end=367
 # @@protoc_insertion_point(module_scope)
